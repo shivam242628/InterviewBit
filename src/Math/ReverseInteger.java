@@ -1,3 +1,20 @@
+/*
+Reverse digits of an integer.
+
+Example1:
+
+x = 123,
+
+return 321
+Example2:
+
+x = -123,
+
+return -321
+
+Return 0 if the result over
+ */
+
 package Math;
 
 import java.util.Scanner;
