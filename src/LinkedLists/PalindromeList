@@ -1,0 +1,31 @@
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     public int val;
+ *     public ListNode next;
+ *     ListNode(int x) { val = x; next = null; }
+ * }
+ */
+public class Solution {
+
+    public int lPalin(ListNode A) {
+        Stack<ListNode> stack = new Stack<>();
+        ListNode temp = A;
+
+        while(temp != null) {
+            stack.add(temp);
+            temp = temp.next;
+        }
+
+        temp = A;
+
+        while(temp != null) {
+            if(temp.val != stack.pop().val) {
+                return 0;
+            }
+            temp = temp.next;
+        }
+
+        return 1;
+    }
+}
