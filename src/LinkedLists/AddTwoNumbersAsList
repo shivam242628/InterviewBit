@@ -1,0 +1,78 @@
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     public int val;
+ *     public ListNode next;
+ *     ListNode(int x) { val = x; next = null; }
+ * }
+ */
+public class Solution {
+    public ListNode addTwoNumbers(ListNode A, ListNode B) {
+        boolean isCarry = false;
+        int carryVal = 0;
+        int n = 0;
+        ListNode tempA = A;
+        ListNode tempB = B;
+        ListNode head = null;
+        int lengthA = 0, lengthB = 0;
+
+        while(tempA != null) {
+            lengthA++;
+            tempA = tempA.next;
+        }
+        while(tempB != null) {
+            lengthB++;
+            tempB = tempB.next;
+        }
+
+        if(lengthA >= lengthB) {
+            head = A;
+            tempA = A;
+            tempB = B;
+            n = lengthA;
+        } else {
+            head = B;
+            tempA = B;
+            tempB = A;
+            n = lengthB;
+        }
+        while(n-- > 0) {
+            int valB = 0;
+            if(tempB == null) {
+                valB = 0;
+            } else {
+                valB = tempB.val;
+                tempB = tempB.next;
+            }
+            if(isCarry) {
+                if((tempA.val + valB + carryVal) > 9){
+                    carryVal = (tempA.val + valB + carryVal)/10;
+                    tempA.val = (tempA.val + valB + carryVal)%10;
+                    isCarry = true;
+                } else {
+                    tempA.val = tempA.val + valB + carryVal;
+                    carryVal = 0;
+                    isCarry = false;
+                }
+            } else {
+                if((tempA.val + valB) > 9){
+                    carryVal = (tempA.val + valB)/10;
+                    tempA.val = (tempA.val + valB)%10;
+                    isCarry = true;
+                } else {
+                    tempA.val = tempA.val + valB;
+                    carryVal = 0;
+                    isCarry = false;
+                }
+            }
+            if(tempA.next != null) {
+                tempA = tempA.next;
+            }
+        }
+        if(isCarry) {
+            ListNode newNode = new ListNode(carryVal);
+            tempA.next = newNode;
+        }
+        return head;
+    }
+}
