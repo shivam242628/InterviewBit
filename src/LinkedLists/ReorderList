@@ -1,0 +1,29 @@
+ public ListNode reorderList(ListNode A) {
+        ListNode head = new ListNode(-1);
+        ListNode curr = head;
+        Stack<ListNode> stack = new Stack<>();
+        int length = 0;
+        ListNode temp = A;
+        while(temp!= null) {
+            length++;
+            stack.push(temp);
+            temp = temp.next;
+        }
+        temp = A;
+        int i = length/2;
+        while(i-- > 0) {
+            curr.next = temp;
+            temp = temp.next;
+            curr = curr.next;
+            curr.next = stack.pop();
+            curr = curr.next;
+            curr.next = null;
+        }
+        if(length % 2 == 0){
+            return head.next;
+        }
+        curr.next = temp;
+        temp.next = null;
+        return head.next;
+
+    }

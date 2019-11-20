@@ -1,0 +1,65 @@
+public ListNode reverseList(ListNode A) {
+        if (A.next == null) {
+            return A;
+        }
+        ListNode prev = null;
+        ListNode curr = A;
+        ListNode next = curr.next;
+
+        while (next != null) {
+            curr.next = prev;
+            prev = curr;
+            curr=next;
+            next = next.next;
+        }
+        curr.next = prev;
+        return curr;
+    }
+
+    public ListNode reverseBetween(ListNode A, int B, int C) {
+        ListNode head = null;
+        ListNode curr = A;
+        ListNode frontHead = null;
+        ListNode frontTail = null;
+        ListNode middleHead = null;
+        ListNode middleTail = null;
+        ListNode endHead = null;
+        ListNode endTail = null;
+        int i = 0;
+        if(B == 1) {
+            middleHead = curr;
+            i = C - B;
+            while (i-- > 0) {
+                curr = curr.next;
+            }
+            endHead = curr.next;
+            curr.next = null;
+            middleHead = reverseList(middleHead);
+            head = middleHead;
+        } else {
+            i = B;
+            head = frontHead = A;
+            while (i-- > 1) {
+                frontTail = curr;
+                curr = curr.next;
+            }
+            frontTail.next = null;
+            middleHead = curr;
+            i = C - B;
+            while (i-- > 0) {
+                curr = curr.next;
+            }
+            endHead = curr.next;
+            curr.next = null;
+            middleHead = reverseList(middleHead);
+        }
+        middleTail = middleHead;
+        while(middleTail.next != null) {
+            middleTail = middleTail.next;
+        }
+        if (frontTail != null) {
+            frontTail.next = middleHead;
+        }
+        middleTail.next = endHead;
+        return head;
+    }
